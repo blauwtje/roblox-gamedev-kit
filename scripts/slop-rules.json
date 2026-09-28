@@ -1,0 +1,226 @@
+{
+  "rules": [
+    {
+      "id": "deprecated-wait",
+      "pattern": "(?m)^(?:(?!--)[^\\n])*?(?<![.:\\w])wait\\(",
+      "reason": "wait() is deprecated and throttled unpredictably.",
+      "use": "task.wait()",
+      "source": "https://devforum.roblox.com/t/deeper-look-into-wait/2178317",
+      "paths": [
+        "**/*.luau",
+        "**/*.lua"
+      ]
+    },
+    {
+      "id": "deprecated-spawn",
+      "pattern": "(?m)^(?:(?!--)[^\\n])*?(?<![.:\\w])spawn\\(",
+      "reason": "spawn() is deprecated and runs on an unpredictable delay.",
+      "use": "task.spawn()",
+      "source": "https://devforum.roblox.com/t/deeper-look-into-wait/2178317",
+      "paths": [
+        "**/*.luau",
+        "**/*.lua"
+      ]
+    },
+    {
+      "id": "deprecated-delay",
+      "pattern": "(?m)^(?:(?!--)[^\\n])*?(?<![.:\\w])delay\\(",
+      "reason": "delay() is deprecated, same as wait/spawn.",
+      "use": "task.delay()",
+      "source": "https://devforum.roblox.com/t/deeper-look-into-wait/2178317",
+      "paths": [
+        "**/*.luau",
+        "**/*.lua"
+      ]
+    },
+    {
+      "id": "instance-new-two-arg",
+      "pattern": "Instance\\.new\\([^()]*,",
+      "reason": "The second Instance.new argument (parent) fires property-changed listeners before the object is configured.",
+      "use": "Set properties first, set Parent last.",
+      "source": "https://create.roblox.com/docs/reference/engine/classes/Instance",
+      "paths": [
+        "**/*.luau",
+        "**/*.lua"
+      ]
+    },
+    {
+      "id": "body-movers",
+      "pattern": "\\b(BodyVelocity|BodyGyro|BodyPosition)\\b",
+      "reason": "Body movers are deprecated and behave differently from their replacements.",
+      "use": "LinearVelocity, AlignPosition, AlignOrientation (they behave differently; retest).",
+      "source": "https://devforum.roblox.com/t/why-is-bodyvelocity-deprecated-when-it-does-more-than-linearvelocity/2135304",
+      "paths": [
+        "**/*.luau",
+        "**/*.lua"
+      ]
+    },
+    {
+      "id": "lowercase-connect",
+      "pattern": ":connect\\(",
+      "reason": "Lowercase :connect() is the deprecated Roblox event API.",
+      "use": ":Connect()",
+      "source": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal",
+      "paths": [
+        "**/*.luau",
+        "**/*.lua"
+      ]
+    },
+    {
+      "id": "filtering-enabled",
+      "pattern": "\\bFilteringEnabled\\b",
+      "reason": "FilteringEnabled is always on; checking it is dead code from pre-2018 tutorials.",
+      "use": "Drop the check.",
+      "source": "https://create.roblox.com/docs/reference/engine/classes/Workspace",
+      "paths": [
+        "**/*.luau",
+        "**/*.lua"
+      ]
+    },
+    {
+      "id": "find-part-on-ray",
+      "pattern": ":FindPartOnRay(?:WithIgnoreList|WithWhitelist)?\\(",
+      "reason": "FindPartOnRay is deprecated.",
+      "use": "workspace:Raycast() with a RaycastParams.",
+      "source": "https://create.roblox.com/docs/reference/engine/classes/WorldRoot",
+      "paths": [
+        "**/*.luau",
+        "**/*.lua"
+      ]
+    },
+    {
+      "id": "humanoid-load-animation",
+      "pattern": "[Hh]umanoid:LoadAnimation\\(",
+      "reason": "Humanoid:LoadAnimation is deprecated.",
+      "use": "Animator:LoadAnimation() on the Humanoid's Animator.",
+      "source": "https://create.roblox.com/docs/reference/engine/classes/Animator",
+      "paths": [
+        "**/*.luau",
+        "**/*.lua"
+      ]
+    },
+    {
+      "id": "set-primary-part-cframe",
+      "pattern": ":SetPrimaryPartCFrame\\(",
+      "reason": "SetPrimaryPartCFrame is deprecated and ignores welds.",
+      "use": "Model:PivotTo()",
+      "source": "https://create.roblox.com/docs/reference/engine/classes/Model",
+      "paths": [
+        "**/*.luau",
+        "**/*.lua"
+      ]
+    },
+    {
+      "id": "get-mouse",
+      "pattern": ":GetMouse\\(\\)",
+      "reason": "Player:GetMouse() is legacy input and does not work well with touch or gamepad.",
+      "use": "UserInputService or ContextActionService.",
+      "source": "https://create.roblox.com/docs/reference/engine/classes/Player",
+      "paths": [
+        "**/*.luau",
+        "**/*.lua"
+      ]
+    },
+    {
+      "id": "font-gotham",
+      "pattern": "Enum\\.Font\\.Gotham\\w*",
+      "reason": "Gotham is the tutorial default and reads as an unstyled placeholder.",
+      "use": "One chosen display font plus one body font, set in a theme module.",
+      "source": "skills/roblox-ui/SKILL.md",
+      "paths": [
+        "**/*.luau",
+        "**/*.lua"
+      ]
+    },
+    {
+      "id": "ui-gradient",
+      "pattern": "UIGradient",
+      "reason": "Frame + UICorner + UIGradient + UIStroke is the code-shape glass look every model draws by default.",
+      "use": "Panels and buttons as uploaded 9-slice images; code only places them.",
+      "source": "skills/roblox-ui/SKILL.md",
+      "paths": [
+        "**/*.luau",
+        "**/*.lua"
+      ]
+    },
+    {
+      "id": "emoji-string",
+      "pattern": "[\"'`][^\"'`\\n]*[⌚⌛⏩-⏬⏰⏳◽◾☔☕♈-♓♿⚓⚡⚪⚫⚽⚾⛄⛅⛎⛔⛪⛲⛳⛵⛺⛽✅✊✋✨❌❎❓-❕❗➕-➗➰➿⬛⬜⭐⭕️\\U0001F000-\\U0001FAFF][^\"'`\\n]*[\"'`]",
+      "reason": "Emoji as icons is the cheapest icon a model can type.",
+      "use": "An own icon set, one style, uploaded as decals.",
+      "source": "skills/roblox-ui/SKILL.md",
+      "paths": [
+        "**/*.luau",
+        "**/*.lua"
+      ]
+    },
+    {
+      "id": "set-async",
+      "pattern": ":SetAsync\\(",
+      "reason": "SetAsync has no retry and can silently overwrite concurrent writes.",
+      "use": "UpdateAsync with retries, BindToClose, and a session lock (or ProfileStore).",
+      "source": "https://create.roblox.com/docs/reference/engine/classes/GlobalDataStore",
+      "paths": [
+        "**/*.luau",
+        "**/*.lua"
+      ]
+    },
+    {
+      "id": "rbxassetid-zero",
+      "pattern": "rbxassetid://0\\b",
+      "reason": "rbxassetid://0 is a placeholder that ships as a blank or grey box.",
+      "use": "The real uploaded asset id.",
+      "source": "https://create.roblox.com/docs/reference/engine/datatypes/Content",
+      "paths": [
+        "**/*.luau",
+        "**/*.lua"
+      ]
+    },
+    {
+      "id": "client-anticheat-kick",
+      "pattern": "AntiCheat|:Kick\\(",
+      "reason": "Anti-cheat checks and :Kick() in a LocalScript run on the client, where an exploiter controls the code.",
+      "use": "Checks live on the server only.",
+      "source": "https://create.roblox.com/docs/scripting/security/security-tactics",
+      "paths": [
+        "**/*.client.luau"
+      ]
+    },
+    {
+      "id": "process-receipt-not-processed-yet",
+      "pattern": "ProcessReceipt",
+      "absent": "NotProcessedYet",
+      "reason": "A ProcessReceipt handler that never returns NotProcessedYet loses purchases made while the server was down or errored.",
+      "use": "Return Enum.ProductPurchaseDecision.NotProcessedYet on a failed grant so Roblox retries.",
+      "source": "https://create.roblox.com/docs/production/monetization/in-experience-purchases",
+      "paths": [
+        "**/*.luau",
+        "**/*.lua"
+      ]
+    },
+    {
+      "id": "datastore-no-bindtoclose",
+      "pattern": "GetDataStore\\(",
+      "absent": "BindToClose",
+      "reason": "A DataStore with no BindToClose loses the last write when the server shuts down.",
+      "use": "game:BindToClose() that saves before the server closes.",
+      "source": "https://create.roblox.com/docs/reference/engine/classes/DataModel",
+      "paths": [
+        "**/*.luau",
+        "**/*.lua"
+      ]
+    },
+    {
+      "id": "remote-handler-no-typeof",
+      "pattern": "OnServerEvent:Connect\\(|OnServerInvoke\\s*=",
+      "absent": "typeof\\(",
+      "reason": "A remote handler with no typeof() check trusts whatever type the client sends.",
+      "use": "typeof() every argument before using it.",
+      "source": "https://devforum.roblox.com/t/how-to-secure-your-remoteevent-and-remotefunction/3345363",
+      "paths": [
+        "**/*.luau",
+        "**/*.lua"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "name": "roblox-gamedev-kit",
+  "version": "0.2.0",
+  "author": {
+    "name": "Thomas Hoogteijling"
+  },
+  "description": "Reusable Claude Code toolset for Roblox games: skills (hardsurface, hero assets, visual-judge loop with prop mode, vfx, ui), generic agents, the Blender prop toolkit (palette presets, Builder, preview rig, bake, check), and the hook architecture (denylist, verification gate, Stop latch, specs hook, config guard, lessons protocol). Each game keeps a thin project layer in its own repo; see README."
+}

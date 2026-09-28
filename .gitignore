@@ -1,0 +1,11 @@
+*.blend1
+.DS_Store
+__pycache__/
+.ruff_cache/
+.venv/
+.env
+.env.*
+*.log
+.claude/
+.exo/
+docs/

@@ -1,0 +1,115 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/claude-session-start.sh\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/check-denylist.py\"",
+            "timeout": 10,
+            "statusMessage": "Denylist running"
+          },
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/slop-scan.py\" --hook",
+            "timeout": 10,
+            "statusMessage": "Slop scan running"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Agent",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/claude-verification-gate.sh\"",
+            "timeout": 300,
+            "statusMessage": "Verification gate running"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Edit(.claude/**/*.md)",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/claude-config-guard-hook.sh\"",
+            "timeout": 30,
+            "statusMessage": "Config guard running"
+          },
+          {
+            "type": "command",
+            "if": "Edit(src/**)",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/claude-specs-hook.sh\"",
+            "timeout": 60,
+            "statusMessage": "Specs running"
+          },
+          {
+            "type": "command",
+            "if": "Edit(tests/**)",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/claude-specs-hook.sh\"",
+            "timeout": 60,
+            "statusMessage": "Specs running"
+          }
+        ]
+      },
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Write(.claude/**/*.md)",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/claude-config-guard-hook.sh\"",
+            "timeout": 30,
+            "statusMessage": "Config guard running"
+          },
+          {
+            "type": "command",
+            "if": "Write(src/**)",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/claude-specs-hook.sh\"",
+            "timeout": 60,
+            "statusMessage": "Specs running"
+          },
+          {
+            "type": "command",
+            "if": "Write(tests/**)",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/claude-specs-hook.sh\"",
+            "timeout": 60,
+            "statusMessage": "Specs running"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/claude-gate-latch.sh\"",
+            "timeout": 15
+          },
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/require-lesson.py\"",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  }
+}

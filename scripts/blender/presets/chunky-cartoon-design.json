@@ -1,0 +1,136 @@
+{
+  "design_system": "chunky-cartoon",
+  "$comment": "Bright chunky cartoon: same proportions and floors as chunky-horror, but every surface is new. The wear, rust and grime strengths are 0 on every role because the camp's own studies state it (pratfall and super-battle-golf: 'no edge wear, no dirt'; r-e-p-o: 'without wear'). Soot stays at 0.4 on body and body2 and 0.2 on trim: it is exhaust staining from a machine that runs, not age, no study rejects it, and it is the only channel left that says the machine runs. The strengths are zeroed per role rather than through wear.max because bake_asset gates the metalness map on recipe['wear'] alone; zeroing only the global cap would leave bare metal in the metalness map with none in the colour map. A bare palette handed to Builder or bake borrows these constants.",
+  "palette": "chunky-cartoon.json",
+  "scale": {
+    "studs_per_unit": 1.0,
+    "read_distance_studs": 40
+  },
+  "bevel": {
+    "min": 0.1,
+    "max": 0.35,
+    "segments": [
+      2,
+      3
+    ],
+    "detail": 0.03
+  },
+  "seam": {
+    "min_inset": 0.08,
+    "min_depth": 0.04,
+    "plate_width": 0.04
+  },
+  "thickness_min": 0.3,
+  "join_fraction": 0.05,
+  "volume_cap": 8,
+  "recipes": {
+    "body": {
+      "wear": 0.0,
+      "rust": 0.0,
+      "grime": 0.0,
+      "soot": 0.4,
+      "metal": 0.0,
+      "uses": [
+        "volume",
+        "cut"
+      ]
+    },
+    "body2": {
+      "wear": 0.0,
+      "rust": 0.0,
+      "grime": 0.0,
+      "soot": 0.4,
+      "metal": 0.1,
+      "uses": [
+        "volume",
+        "cut",
+        "stud"
+      ]
+    },
+    "trim": {
+      "wear": 0.0,
+      "rust": 0.0,
+      "grime": 0.0,
+      "soot": 0.2,
+      "metal": 0.4,
+      "uses": [
+        "volume",
+        "cut",
+        "stud"
+      ]
+    },
+    "accent": {
+      "wear": 0.0,
+      "rust": 0.0,
+      "grime": 0.0,
+      "soot": 0.0,
+      "metal": 0.0,
+      "uses": [
+        "cut",
+        "stud"
+      ]
+    },
+    "emissive": {
+      "wear": 0.0,
+      "rust": 0.0,
+      "grime": 0.0,
+      "soot": 0.0,
+      "metal": 0.0,
+      "uses": [
+        "volume",
+        "stud"
+      ]
+    }
+  },
+  "wear": {
+    "radius": 0.06,
+    "max": 0.45,
+    "bare_metal_rgb": [
+      0.38,
+      0.39,
+      0.41
+    ]
+  },
+  "dirt": {
+    "height": 0.35,
+    "strength": 0.25,
+    "rgb": [
+      0.045,
+      0.038,
+      0.03
+    ]
+  },
+  "rust_rgb": [
+    0.3,
+    0.13,
+    0.06
+  ],
+  "soot": {
+    "radius": 0.4,
+    "strength": 0.3,
+    "rgb": [
+      0.02,
+      0.018,
+      0.016
+    ],
+    "tags": [
+      "emissive",
+      "exhaust"
+    ]
+  },
+  "motifs": [
+    "round studs in body2, placed in short counted rows",
+    "exactly one accent surface, one emissive signal at most",
+    "an emissive signal is built from discrete small units, never one large smooth glowing plate"
+  ],
+  "forbidden": [
+    "a pipe, bar or handle thinner than thickness_min",
+    "scattered studs: every stud is placed and counted",
+    "a second saturated colour next to the accent",
+    "a glued-on thin box where a cut would do",
+    "any creature, character or NPC body: characters come from the gameplay layer, the world blueprint has no character kind",
+    "a rock or cliff modelled as one sculpted surface: nature is a stack of blocks with a lighter top face",
+    "modelled wear: a chip, a dent or a scratch cut into the geometry, in a camp where every surface is new",
+    "a vice prop or a crude body gag: platform policy outranks the reference, however funny the source is"
+  ]
+}

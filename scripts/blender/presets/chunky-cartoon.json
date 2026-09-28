@@ -1,0 +1,55 @@
+{
+  "preset": "chunky-cartoon",
+  "$comment": "Bright chunky cartoon. emissive carries its own hue rather than the accent's: with one rgb on both roles the design-system line 'exactly one accent surface, one emissive signal at most' cannot be scored from a render at all (prop judge, beacon rounds 2 and 3). The value is chunky-horror's emissive, already shipped in this kit, and refboard measures its chroma distance to the accent at 12.99, past the 12.0 the board calls a separate family.",
+  "roles": {
+    "body": {
+      "rgb": [
+        0.7,
+        0.66,
+        0.56
+      ],
+      "roughness": 0.7
+    },
+    "body2": {
+      "rgb": [
+        0.12,
+        0.11,
+        0.098
+      ],
+      "roughness": 0.8
+    },
+    "trim": {
+      "rgb": [
+        0.061,
+        0.051,
+        0.054
+      ],
+      "roughness": 0.6
+    },
+    "accent": {
+      "rgb": [
+        0.95,
+        0.56,
+        0.12
+      ],
+      "roughness": 0.45
+    },
+    "emissive": {
+      "rgb": [
+        0.98,
+        0.42,
+        0.08
+      ],
+      "roughness": 0.45
+    }
+  },
+  "rules": {
+    "min_luminance_contrast_body_body2": 0.3,
+    "max_saturation_body": 0.4,
+    "min_saturation_accent": 0.6,
+    "roughness_range": [
+      0.35,
+      0.9
+    ]
+  }
+}

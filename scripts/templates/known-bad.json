@@ -1,0 +1,4 @@
+{
+  "$comment": "Denylist of known wrong APIs, settings and phrasings for this project. Every entry belongs to a record in .claude/lessons.jsonl (doel: denylist). Read by the plugin hooks (PreToolUse refusal and config guard check E). Exception per file: the text guard:ignore <id>. Compiled by the plugin's lessons compiler; edit the source, never this file.",
+  "entries": []
+}
